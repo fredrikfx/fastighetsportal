@@ -15,23 +15,7 @@ const ImageSlider = dynamic(() => import('../../components/ImageSlider'), {
   )
 });
 
-const BookingCalendar = dynamic(() => import('../../components/BookingCalendar'), {
-  ssr: false,
-  loading: () => (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Boka din vistelse</h2>
-      <div className="animate-pulse flex space-x-4">
-        <div className="flex-1 space-y-4 py-1">
-          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-          <div className="space-y-2">
-            <div className="h-4 bg-gray-200 rounded"></div>
-            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-});
+import BookingCalendar from '../../components/BookingCalendar';
 
 // Ikon-komponent baserad på bekvämlighetens id
 function AmenityIcon({ id, finnsEj }) {
@@ -218,68 +202,66 @@ export default function PropertyDetail() {
         <ImageSlider images={getImages()} />
       </div>
       
-      {/* Nyckeldata rutor - 2x4 grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        {fastighet.boyta && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Boyta</div>
-            <div className="font-bold text-lg">{fastighet.boyta} m²</div>
-          </div>
-        )}
-        {fastighet.antalRum && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Antal rum</div>
-            <div className="font-bold text-lg">{fastighet.antalRum}</div>
-          </div>
-        )}
-        {fastighet.antalBaddar && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Antal bäddar</div>
-            <div className="font-bold text-lg">{fastighet.antalBaddar}</div>
-          </div>
-        )}
-        {fastighet.land && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Land</div>
-            <div className="font-bold text-lg">{fastighet.land}</div>
-          </div>
-        )}
-        {fastighet.husdjurTillatet !== undefined && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Husdjur tillåtet</div>
-            <div className="font-bold text-lg">{fastighet.husdjurTillatet ? 'Ja' : 'Nej'}</div>
-          </div>
-        )}
-        {fastighet.rokfri !== undefined && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Rökfri</div>
-            <div className="font-bold text-lg">{fastighet.rokfri ? 'Ja' : 'Nej'}</div>
-          </div>
-        )}
-        {fastighet.uthyresMoblerad !== undefined && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Uthyres möblerad</div>
-            <div className="font-bold text-lg">{fastighet.uthyresMoblerad ? 'Ja' : 'Nej'}</div>
-          </div>
-        )}
-        {(fastighet.veckoavgiftLag || fastighet.veckoavgiftHog) && (
-          <div className="text-center border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-            <div className="text-gray-600 text-sm">Veckoavgift</div>
-            <div className="font-bold text-lg">
-              {(fastighet.veckoavgiftLag && fastighet.veckoavgiftHog && 
-                fastighet.veckoavgiftLag !== fastighet.veckoavgiftHog) ? 
-                `${fastighet.veckoavgiftLag} - ${fastighet.veckoavgiftHog} kr` : 
-                `${fastighet.veckoavgiftLag || fastighet.veckoavgiftHog} kr`}
+      {/* Grundläggande information - Nyckeldata */}
+      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          {fastighet.boyta && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Boyta</div>
+              <div className="font-bold text-lg">{fastighet.boyta} m²</div>
             </div>
-          </div>
-        )}
-      </div>
-      
-      {/* Huvudinnehåll med två kolumner för detaljer och kalender */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        {/* Vänster kolumn: Detaljer och beskrivning */}
-        <div>
-          <div className="bg-white shadow-md rounded-lg p-6 mb-6 border border-gray-200">
+          )}
+          {fastighet.antalRum && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Antal rum</div>
+              <div className="font-bold text-lg">{fastighet.antalRum}</div>
+            </div>
+          )}
+          {fastighet.antalBaddar && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Antal bäddar</div>
+              <div className="font-bold text-lg">{fastighet.antalBaddar}</div>
+            </div>
+          )}
+          {fastighet.land && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Land</div>
+              <div className="font-bold text-lg">{fastighet.land}</div>
+            </div>
+          )}
+          {fastighet.husdjurTillatet !== undefined && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Husdjur tillåtet</div>
+              <div className="font-bold text-lg">{fastighet.husdjurTillatet ? 'Ja' : 'Nej'}</div>
+            </div>
+          )}
+          {fastighet.rokfri !== undefined && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Rökfri</div>
+              <div className="font-bold text-lg">{fastighet.rokfri ? 'Ja' : 'Nej'}</div>
+            </div>
+          )}
+          {fastighet.uthyresMoblerad !== undefined && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Uthyres möblerad</div>
+              <div className="font-bold text-lg">{fastighet.uthyresMoblerad ? 'Ja' : 'Nej'}</div>
+            </div>
+          )}
+          {(fastighet.veckoavgiftLag || fastighet.veckoavgiftHog) && (
+            <div className="text-center">
+              <div className="text-gray-600 text-sm">Veckoavgift</div>
+              <div className="font-bold text-lg">
+                {(fastighet.veckoavgiftLag && fastighet.veckoavgiftHog && 
+                  fastighet.veckoavgiftLag !== fastighet.veckoavgiftHog) ? 
+                  `${fastighet.veckoavgiftLag} - ${fastighet.veckoavgiftHog} kr` : 
+                  `${fastighet.veckoavgiftLag || fastighet.veckoavgiftHog} kr`}
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
             <h2 className="text-xl font-semibold mb-4">Detaljer</h2>
             <div className="space-y-2">
               {fastighet.adress && (
@@ -301,66 +283,65 @@ export default function PropertyDetail() {
             </div>
           </div>
           
-          <div className="bg-white shadow-md rounded-lg p-6 mb-6 border border-gray-200">
+          <div>
             <h2 className="text-xl font-semibold mb-4">Beskrivning</h2>
-            <p className="text-gray-700">{fastighet.beskrivning || 'Ingen beskrivning tillgänglig.'}</p>
+            <p className="text-gray-700 mb-6">{fastighet.beskrivning || 'Ingen beskrivning tillgänglig.'}</p>
+            
+            {/* Tillgänglighetskalender */}
+            <h2 className="text-xl font-semibold mb-4">Tillgänglighet</h2>
+            <BookingCalendar fastighetId={id} />
           </div>
-          
-          {/* Bekvämligheter */}
-          {fastighet.bekvamlighetLista && fastighet.bekvamlighetLista.length > 0 && (
-            <div className="bg-white shadow-md rounded-lg p-6 mb-6 border border-gray-200">
-              <h2 className="text-xl font-semibold mb-4">Bekvämligheter</h2>
-              
-              {/* Huvud-bekvämligheter med ikoner */}
-              {fastighet.bekvamligheter?.Huvudbekvämligheter && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  {fastighet.bekvamligheter.Huvudbekvämligheter.map(bek => (
-                    <div key={bek.id} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-100">
-                      <div className="mr-3">
-                        <AmenityIcon id={bek.id} finnsEj={bek.finnsEj} />
-                      </div>
-                      <span className={bek.finnsEj ? 'line-through text-gray-400' : ''}>
-                        {bek.namn}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              
-              {/* Alla bekvämligheter grupperade efter kategori */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {Object.keys(fastighet.bekvamligheter || {})
-                  .filter(cat => cat !== 'Huvudbekvämligheter')
-                  .sort((a, b) => a.localeCompare(b)) // Sortera kategorierna alfabetiskt
-                  .map(kategori => (
-                    <div key={kategori}>
-                      <h3 className="font-medium text-lg mb-2">{kategori}</h3>
-                      <ul className="space-y-2">
-                        {fastighet.bekvamligheter[kategori]
-                          .sort((a, b) => a.namn.localeCompare(b.namn)) // Sortera bekvämligheter alfabetiskt
-                          .map(bek => (
-                            <li key={bek.id} className="flex items-center">
-                              <span className="mr-2">
-                                <AmenityIcon id={bek.id} finnsEj={bek.finnsEj} />
-                              </span>
-                              <span className={bek.finnsEj ? 'line-through text-gray-400' : ''}>
-                                {bek.namn}
-                              </span>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* Höger kolumn: Bokningskalender */}
-        <div>
-          <BookingCalendar fastighetId={id} onBookingSuccess={handleBookingSuccess} />
         </div>
       </div>
+   
+      {/* Bekvämligheter */}
+      {fastighet.bekvamlighetLista && fastighet.bekvamlighetLista.length > 0 && (
+        <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-4">Bekvämligheter</h2>
+          
+          {/* Huvud-bekvämligheter med ikoner */}
+          {fastighet.bekvamligheter?.Huvudbekvämligheter && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              {fastighet.bekvamligheter.Huvudbekvämligheter.map(bek => (
+                <div key={bek.id} className="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div className="mr-3">
+                    <AmenityIcon id={bek.id} finnsEj={bek.finnsEj} />
+                  </div>
+                  <span className={bek.finnsEj ? 'line-through text-gray-400' : ''}>
+                    {bek.namn}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {/* Alla bekvämligheter grupperade efter kategori */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Object.keys(fastighet.bekvamligheter || {})
+              .filter(cat => cat !== 'Huvudbekvämligheter')
+              .sort((a, b) => a.localeCompare(b)) // Sortera kategorierna alfabetiskt
+              .map(kategori => (
+                <div key={kategori}>
+                  <h3 className="font-medium text-lg mb-2">{kategori}</h3>
+                  <ul className="space-y-2">
+                    {fastighet.bekvamligheter[kategori]
+                      .sort((a, b) => a.namn.localeCompare(b.namn)) // Sortera bekvämligheter alfabetiskt
+                      .map(bek => (
+                        <li key={bek.id} className="flex items-center">
+                          <span className="mr-2">
+                            <AmenityIcon id={bek.id} finnsEj={bek.finnsEj} />
+                          </span>
+                          <span className={bek.finnsEj ? 'line-through text-gray-400' : ''}>
+                            {bek.namn}
+                          </span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

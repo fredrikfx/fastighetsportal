@@ -1,6 +1,4 @@
-// pages/api/bokningar/check-tillganglighet.js
 import { checkTillganglighet } from '../../../lib/sql';
-
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {

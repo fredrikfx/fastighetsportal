@@ -153,23 +153,17 @@ export default function AdminDashboard() {
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Snabbåtgärder</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link href="/admin/fastigheter/new">
-            <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
-              <h3 className="font-semibold">Lägg till fastighet</h3>
-              <p className="text-gray-600 text-sm">Skapa en ny fastighet i systemet</p>
-            </div>
+          <Link href="/admin/fastigheter/new" className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer">
+            <h3 className="font-semibold">Lägg till fastighet</h3>
+            <p className="text-gray-600 text-sm">Skapa en ny fastighet i systemet</p>
           </Link>
-          <Link href="/admin/bokningar/new">
-            <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
-              <h3 className="font-semibold">Skapa bokning</h3>
-              <p className="text-gray-600 text-sm">Registrera en ny bokning</p>
-            </div>
+          <Link href="/admin/bokningar/new" className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer">
+            <h3 className="font-semibold">Skapa bokning</h3>
+            <p className="text-gray-600 text-sm">Registrera en ny bokning</p>
           </Link>
-          <Link href="/admin/bilder/upload">
-            <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
-              <h3 className="font-semibold">Ladda upp bilder</h3>
-              <p className="text-gray-600 text-sm">Lägg till nya bilder för fastigheter</p>
-            </div>
+          <Link href="/admin/bilder/upload" className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer">
+            <h3 className="font-semibold">Ladda upp bilder</h3>
+            <p className="text-gray-600 text-sm">Lägg till nya bilder för fastigheter</p>
           </Link>
         </div>
       </div>
